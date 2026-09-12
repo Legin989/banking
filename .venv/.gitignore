@@ -1,0 +1,11 @@
+# Віртуальне оточення (папка .venv стане сірою або ігнорованою)
+.venv/
+venv/
+ENV/
+
+# Налаштування PyCharm / JetBrains IDE
+.idea/
+
+# Файли кешу Python
+__pycache__/
+*.py[cod]
