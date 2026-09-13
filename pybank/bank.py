@@ -80,15 +80,3 @@ class Bank:
 
     def __repr__(self):
         return f"Bank('{self.name}', рахунків: {len(self)})"
-
-# bank = Bank("MONO")
-#
-# account1 = Account("Bob", 1000)
-# account2 = Account("Alex", 2000)
-#
-# bank.open_account(account1)
-# bank.open_account(account2)
-#
-# for account in bank:
-#     print(account)
-
