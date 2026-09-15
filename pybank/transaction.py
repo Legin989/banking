@@ -53,7 +53,7 @@ class TransactionLog:
                 yield transaction
 
 
-    def add(self, transaction: object) -> Any:
+    def add(self, transaction):
         self._transactions.append(transaction)
         return transaction
 

@@ -9,7 +9,7 @@ class Bank:
     def __init__(self, name):
         self.name = name
         self._accounts: list[Account] = []
-        self.log = TransactionLog
+        self.log = TransactionLog()
 
     def open_account(self, account) :
         self._accounts.append(account)

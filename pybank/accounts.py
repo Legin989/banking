@@ -1,4 +1,3 @@
-
 from pybank.exceptions import InvalidAmount, InsufficientFunds, AccountBlocked, AccountError, LimitExceeded
 
 class Account:
@@ -54,11 +53,30 @@ class Account:
         self._balance -= amount
         return self.balance
 
-    def transfer(self, to:"Account", amount:float ) -> float:
-        if not isinstance(to, Account):
-            raise AccountError()
-        self.withdraw(amount)
-        to.deposit(amount)
+    # def transfer(self, to:"Account", amount:float ) -> float:
+    #     if not isinstance(to, Account):
+    #         raise AccountError()
+    #     self.withdraw(amount)
+    #     to.deposit(amount)
+
+    def to_dict(self):
+        return {
+            "type": type(self).__name__,
+            "acc_number": self.acc_number,
+            "owner":self.owner,
+            "balance": self.balance,
+            "is_blocked": self.is_blocked,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        account = cls(data["owner"])
+        account.acc_number = data["acc_number"]
+        account._balance = data["balance"]
+        account.is_blocked = data["is_blocked"]
+        return account
+
+
 
     def __str__(self):
         return f"{self.acc_number} | {self.owner} | {self.balance:.2f} грн"
@@ -89,6 +107,18 @@ class SavingsAccount(Account):
         self._balance += interest
         return interest
 
+    def to_dict(self):
+        data = super().to_dict()
+        data["rate"] = self.rate
+        return data
+
+    @classmethod
+    def from_dict(cls, data):
+        account = super().from_dict(data)
+        account.rate = data["rate"]
+        return account
+
+
 
 
 class CreditAccount(Account):
@@ -100,6 +130,18 @@ class CreditAccount(Account):
     def kind(self):
         return "Кредитний"
 
-
+    @property
     def available(self):
         return round(self._balance + self.limit, 2)
+
+    def to_dict(self):
+        data = super().to_dict()
+        data["limit"] = self.limit
+        return data
+
+    @classmethod
+    def from_dict(cls, data):
+        account = super().from_dict(data)
+        account.limit = data["limit"]
+        return account
+

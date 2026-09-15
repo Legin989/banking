@@ -1,7 +1,5 @@
 class BankError(Exception):
-    """
-    Кореневий виняток PyBank
-    """
+    """Кореневий виняток PyBank"""
 
 class AccountError(BankError):
     ...
