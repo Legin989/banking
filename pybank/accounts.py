@@ -49,7 +49,7 @@ class Account:
         self.validate_amount(amount)
 
         if self._balance < amount:
-            raise InsufficientFunds(self.acc_number, self._balance, amount)
+            raise InsufficientFunds(self.acc_number, amount, self._balance)
 
         self._balance -= amount
         return self.balance
@@ -146,3 +146,13 @@ class CreditAccount(Account):
         account.limit = data["limit"]
         return account
 
+    def withdraw(self, amount: float) -> float:
+        if self.is_blocked:
+            raise AccountBlocked(self.acc_number)
+        self.validate_amount(amount)
+
+        if self.available < amount:
+            raise InsufficientFunds(self.acc_number, self.available, amount)
+
+        self._balance -= amount
+        return self.balance

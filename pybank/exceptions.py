@@ -24,8 +24,11 @@ class InvalidAmount(OperationError):
         super().__init__(f"некоректна сума: {amount!r} грн")
 
 class InsufficientFunds(OperationError):
-    def __init__(self, acc_number, amount, required):
-        super().__init__(f"на {acc_number} бракує {required - amount:.2f} грн (доступно {amount:.2f} грн, потрібно {required} грн")
+    def __init__(self, acc_number, available, required):
+        super().__init__(
+            f"на {acc_number} бракує {required - available:.2f} грн "
+            f"(доступно {available:.2f} грн, потрібно {required} грн)"
+        )
 
 class LimitExceeded(OperationError):
     def __init__(self, amount, limit):

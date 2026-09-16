@@ -8,6 +8,7 @@ def log_operation(func):
             result = func(self, *args, **kwargs)
         except BankError as e:
             print(f"[LOG] {func.__name__} -> {type(e).__name__}")
+            raise
         else:
             print(f"[LOG] {func.__name__} -> OK")
             return result
