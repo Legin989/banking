@@ -46,7 +46,7 @@ class Bank:
         sourse_account.withdraw(amount)
         try:
             target_account.deposit(amount)
-        except BankError as e:
+        except BankError:
             sourse_account.deposit(amount)
             raise
 

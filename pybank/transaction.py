@@ -1,6 +1,3 @@
-from typing import Any
-
-
 class Transaction:
     _counter = 0
 
